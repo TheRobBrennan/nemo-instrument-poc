@@ -1,0 +1,12 @@
+{
+    "commits": [
+        {
+            "message": "Merge pull request #123 from SplooshAI:feature/visualization\n\nfeat: add data visualization component\n\nAdds a new reusable visualization component"
+        }
+    ],
+    "pull_request": {
+        "title": "feat: add data visualization component",
+        "body": "Adds a new reusable visualization component",
+        "number": 123
+    }
+}

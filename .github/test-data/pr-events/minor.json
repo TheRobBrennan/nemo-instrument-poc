@@ -1,0 +1,12 @@
+{
+    "pull_request": {
+        "title": "feat: add data visualization component",
+        "body": "Adding new reusable data visualization component",
+        "number": 2,
+        "html_url": "https://github.com/SplooshAI/sploosh-ai-github-template/pull/2"
+    },
+    "repository": {
+        "full_name": "SplooshAI/sploosh-ai-github-template",
+        "html_url": "https://github.com/SplooshAI/sploosh-ai-github-template"
+    }
+}

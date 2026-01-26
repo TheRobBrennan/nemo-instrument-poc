@@ -1,0 +1,28 @@
+{
+  "name": "sploosh-ai-github-template",
+  "version": "0.0.1",
+  "description": "A GitHub template repository with automated versioning and GPG signing for SplooshAI projects",
+  "homepage": "https://github.com/SplooshAI/sploosh-ai-github-template#readme",
+  "bugs": {
+    "url": "https://github.com/SplooshAI/sploosh-ai-github-template/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SplooshAI/sploosh-ai-github-template.git"
+  },
+  "license": "MIT",
+  "author": "Rob Brennan <rob@sploosh.ai>",
+  "scripts": {
+    "start": "npm run setup:ssh && npm repo",
+    "setup:ssh": "eval \"$(ssh-agent -s)\" && ssh-add ~/.ssh/splooshai-github",
+    "test": "npm run test:workflows",
+    "test:workflows": "chmod +x .github/test-workflows.sh && .github/test-workflows.sh",
+    "test:workflows:semantic": "act pull_request -e .github/test-data/pr-events/minor.json -W .github/workflows/semantic-pr-check.yml",
+    "test:workflows:semantic:major": "act pull_request -e .github/test-data/pr-events/major.json -W .github/workflows/semantic-pr-check.yml",
+    "test:workflows:semantic:minor": "act pull_request -e .github/test-data/pr-events/minor.json -W .github/workflows/semantic-pr-check.yml",
+    "test:workflows:semantic:patch": "act pull_request -e .github/test-data/pr-events/patch.json -W .github/workflows/semantic-pr-check.yml",
+    "test:workflows:semantic:invalid": "act pull_request -e .github/test-data/pr-events/invalid.json -W .github/workflows/semantic-pr-check.yml",
+    "test:workflows:version": "act workflow_dispatch -W .github/workflows/version-bump.yml --container-architecture linux/amd64",
+    "test:workflows:merge": "act push -e .github/test-data/pr-events/merge.json -W .github/workflows/main-merge.yml --container-architecture linux/amd64"
+  }
+}

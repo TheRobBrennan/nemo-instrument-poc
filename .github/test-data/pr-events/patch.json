@@ -1,0 +1,12 @@
+{
+    "pull_request": {
+        "title": "fix: correct data processing logic",
+        "body": "Fixed bug in data processing pipeline",
+        "number": 3,
+        "html_url": "https://github.com/SplooshAI/sploosh-ai-github-template/pull/3"
+    },
+    "repository": {
+        "full_name": "SplooshAI/sploosh-ai-github-template",
+        "html_url": "https://github.com/SplooshAI/sploosh-ai-github-template"
+    }
+}
