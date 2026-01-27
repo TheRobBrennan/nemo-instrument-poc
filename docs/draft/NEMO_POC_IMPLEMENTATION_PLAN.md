@@ -1,6 +1,7 @@
 # Nemo Instrument UI POC - Implementation Plan for Windsurf
 
 ## Overview
+
 This document provides step-by-step instructions for building the Nemo Instrument UI proof-of-concept. Each task is designed to be executed sequentially, with clear acceptance criteria.
 
 ---
@@ -8,6 +9,7 @@ This document provides step-by-step instructions for building the Nemo Instrumen
 ## Prerequisites
 
 ### Local Machine Setup
+
 ```bash
 # Required installations
 node --version    # Should be >= 24.0.0 (Node.js 24.x LTS "Krypton" recommended)
@@ -21,6 +23,7 @@ source $HOME/.cargo/env
 ```
 
 **Recommended Node.js Installation:**
+
 ```bash
 # Using nvm (recommended for managing Node versions)
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
@@ -36,6 +39,7 @@ npm --version   # Should show 11.x.x (bundled with Node 24)
 **Note**: npm 11 comes bundled with Node.js 24, so installing Node 24 automatically gives you npm 11 with improved performance, security, and modern package compatibility.
 
 ### Repository Setup
+
 ```bash
 # Use your template as base
 git clone https://github.com/SplooshAI/sploosh-ai-github-template nemo-instrument-poc
@@ -52,6 +56,7 @@ git push -u origin main
 ## Phase 1: Project Scaffolding (1-2 hours)
 
 ### Task 1.1: Initialize React + Vite + TypeScript Project
+
 ```bash
 # Create Vite project with React + TypeScript
 npm create vite@latest . -- --template react-ts
@@ -87,12 +92,14 @@ npm install -D \
 **Note**: `npm create vite@latest` will install React 19.x and Vite 7.x by default as of January 2026.
 
 **React 19 Benefits for this POC**:
+
 - Actions API will simplify our WebSocket command handling
 - No need for `forwardRef` - cleaner component code
 - Better error messages during development
 - Native async transitions for smooth UI updates
 
 **Acceptance Criteria:**
+
 - ✅ `npm run dev` starts development server
 - ✅ `npm run build` completes without errors
 - ✅ TypeScript types are working
@@ -100,11 +107,13 @@ npm install -D \
 - ✅ Vite version is 7.x (check with `npm list vite`)
 
 ### Task 1.2: Configure TailwindCSS
+
 ```bash
 npx tailwindcss init -p
 ```
 
 **File: `tailwind.config.js`**
+
 ```javascript
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -130,6 +139,7 @@ export default {
 ```
 
 **File: `src/index.css`**
+
 ```css
 @tailwind base;
 @tailwind components;
@@ -143,11 +153,14 @@ export default {
 ```
 
 **Acceptance Criteria:**
+
 - ✅ TailwindCSS classes work in components
 - ✅ Custom colors accessible
 
 ### Task 1.3: Configure Vitest
+
 **File: `vitest.config.ts`**
+
 ```typescript
 import { defineConfig } from 'vitest/config';
 import react from '@vitejs/plugin-react';
@@ -183,6 +196,7 @@ export default defineConfig({
 **Note**: This configuration is compatible with React 19, Vite 7, and Vitest 3.2+. React Testing Library works seamlessly with React 19's new features like the Actions API and improved ref handling.
 
 **File: `src/test/setup.ts`**
+
 ```typescript
 import '@testing-library/jest-dom';
 import { cleanup } from '@testing-library/react';
@@ -194,6 +208,7 @@ afterEach(() => {
 ```
 
 **File: `package.json` - Update scripts:**
+
 ```json
 {
   "scripts": {
@@ -209,10 +224,12 @@ afterEach(() => {
 ```
 
 **Acceptance Criteria:**
+
 - ✅ `npm test` runs test suite
 - ✅ `npm run test:coverage` generates coverage report
 
 ### Task 1.4: Project Structure Setup
+
 ```bash
 # Create directory structure
 mkdir -p src/{components,services,stores,types,hooks,utils,test}
@@ -223,6 +240,7 @@ mkdir -p docker
 ```
 
 **Acceptance Criteria:**
+
 - ✅ Directory structure matches PRD
 
 ---
@@ -230,7 +248,9 @@ mkdir -p docker
 ## Phase 2: Type Definitions & Mock Data (30 min)
 
 ### Task 2.1: Create TypeScript Types
+
 **File: `src/types/instrument.ts`**
+
 ```typescript
 export type InstrumentState = 
   | 'IDLE'
@@ -270,6 +290,7 @@ export interface RunPhase {
 ```
 
 **File: `src/types/websocket.ts`**
+
 ```typescript
 import { StatusUpdate } from './instrument';
 
@@ -296,6 +317,7 @@ export interface WebSocketConfig {
 ```
 
 **File: `src/types/auth.ts`**
+
 ```typescript
 export type UserRole = 'scientist' | 'admin' | 'engineer';
 
@@ -309,11 +331,14 @@ export type AppMode = 'run' | 'admin' | 'engineering';
 ```
 
 **Acceptance Criteria:**
+
 - ✅ All types export correctly
 - ✅ No TypeScript errors
 
 ### Task 2.2: Create Mock Data
+
 **File: `src/utils/mockData.ts`**
+
 ```typescript
 import { RunConfiguration, RunPhase } from '@/types/instrument';
 
@@ -369,6 +394,7 @@ export const getRandomErrorCode = (): { code: string; message: string } => {
 ```
 
 **Acceptance Criteria:**
+
 - ✅ Mock data imports correctly
 - ✅ Types match definitions
 
@@ -377,6 +403,7 @@ export const getRandomErrorCode = (): { code: string; message: string } => {
 ## Phase 3: State Management (30 min)
 
 **About Zustand**: If you're new to Zustand, don't worry! It's intentionally simple - think of it as useState but global. The entire API you need to know:
+
 - `create()` - Creates a store
 - `set()` - Updates state
 - `get()` - Reads state (rarely needed)
@@ -385,7 +412,9 @@ export const getRandomErrorCode = (): { code: string; message: string } => {
 That's it! No actions, reducers, or dispatchers. The POC uses basic patterns that will be easy to follow.
 
 ### Task 3.1: Create Zustand Store
+
 **File: `src/stores/instrumentStore.ts`**
+
 ```typescript
 import { create } from 'zustand';
 import { InstrumentState, StatusUpdate } from '@/types/instrument';
@@ -428,6 +457,7 @@ export const useInstrumentStore = create<InstrumentStore>((set) => ({
 ```
 
 **File: `src/stores/instrumentStore.test.ts`**
+
 ```typescript
 import { describe, it, expect, beforeEach } from 'vitest';
 import { useInstrumentStore } from './instrumentStore';
@@ -476,10 +506,12 @@ describe('InstrumentStore', () => {
 ```
 
 **Acceptance Criteria:**
+
 - ✅ Store tests pass
 - ✅ State updates work correctly
 
 **Zustand Quick Reference:**
+
 ```typescript
 // In components - it's just like useState!
 const status = useInstrumentStore(state => state.status);  // Subscribe to status only
@@ -499,7 +531,9 @@ useInstrumentStore.getState().setStatus(newStatus);
 ## Phase 4: WebSocket Service (1 hour)
 
 ### Task 4.1: Create WebSocket Service
+
 **File: `src/services/websocket.ts`**
+
 ```typescript
 import { ClientMessage, ServerMessage, WebSocketConfig } from '@/types/websocket';
 import { StatusUpdate } from '@/types/instrument';
@@ -617,6 +651,7 @@ export const websocketService = new WebSocketService();
 ```
 
 **File: `src/services/websocket.test.ts`**
+
 ```typescript
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { WebSocketService } from './websocket';
@@ -702,6 +737,7 @@ describe('WebSocketService', () => {
 ```
 
 **Acceptance Criteria:**
+
 - ✅ WebSocket tests pass
 - ✅ Connection/reconnection logic works
 - ✅ Message handlers work correctly
@@ -711,7 +747,9 @@ describe('WebSocketService', () => {
 ## Phase 5: Mock Backend Server (45 min)
 
 ### Task 5.1: Create Mock Backend
+
 **File: `backend-mock/package.json`**
+
 ```json
 {
   "name": "nemo-backend-mock",
@@ -729,6 +767,7 @@ describe('WebSocketService', () => {
 ```
 
 **File: `backend-mock/server.js`**
+
 ```javascript
 import { WebSocketServer } from 'ws';
 import express from 'express';
@@ -869,6 +908,7 @@ console.log(`WebSocket server running on port ${WS_PORT}`);
 ```
 
 **Acceptance Criteria:**
+
 - ✅ Backend starts without errors
 - ✅ Accepts WebSocket connections
 - ✅ Simulates run phases correctly
@@ -878,7 +918,9 @@ console.log(`WebSocket server running on port ${WS_PORT}`);
 ## Phase 6: React Components (2 hours)
 
 ### Task 6.1: Create Common Components
+
 **File: `src/components/common/Card.tsx`**
+
 ```typescript
 import React from 'react';
 import { clsx } from 'clsx';
@@ -907,6 +949,7 @@ export const Card: React.FC<CardProps> = ({ children, className, title }) => {
 ```
 
 **File: `src/components/common/Button.tsx`**
+
 ```typescript
 import React from 'react';
 import { clsx } from 'clsx';
@@ -953,6 +996,7 @@ export const Button: React.FC<ButtonProps> = ({
 ```
 
 **File: `src/components/common/StatusBadge.tsx`**
+
 ```typescript
 import React from 'react';
 import { InstrumentState } from '@/types/instrument';
@@ -988,12 +1032,15 @@ export const StatusBadge: React.FC<StatusBadgeProps> = ({ state }) => {
 ```
 
 **Acceptance Criteria:**
+
 - ✅ Components render correctly
 - ✅ Props work as expected
 - ✅ Styling looks good
 
 ### Task 6.2: Create Dashboard Component
+
 **File: `src/components/Dashboard/Dashboard.tsx`**
+
 ```typescript
 import React from 'react';
 import { useInstrumentStore } from '@/stores/instrumentStore';
@@ -1065,6 +1112,7 @@ export const Dashboard: React.FC = () => {
 ```
 
 **File: `src/components/Dashboard/Dashboard.test.tsx`**
+
 ```typescript
 import { describe, it, expect, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
@@ -1108,6 +1156,7 @@ describe('Dashboard', () => {
 ```
 
 **Acceptance Criteria:**
+
 - ✅ Dashboard renders correctly
 - ✅ Shows connection status
 - ✅ Shows instrument status
@@ -1115,7 +1164,9 @@ describe('Dashboard', () => {
 - ✅ Tests pass
 
 ### Task 6.3: Create RunManagement Component
+
 **File: `src/components/RunManagement/RunManagement.tsx`**
+
 ```typescript
 import React, { useState } from 'react';
 import { useInstrumentStore } from '@/stores/instrumentStore';
@@ -1206,6 +1257,7 @@ export const RunManagement: React.FC = () => {
 ```
 
 **Acceptance Criteria:**
+
 - ✅ Can select configuration
 - ✅ Start run button works
 - ✅ Disabled states work correctly
@@ -1215,7 +1267,9 @@ export const RunManagement: React.FC = () => {
 ## Phase 7: Integration & Main App (30 min)
 
 ### Task 7.1: Create Custom Hook for WebSocket
+
 **File: `src/hooks/useWebSocket.ts`**
+
 ```typescript
 import { useEffect } from 'react';
 import { websocketService } from '@/services/websocket';
@@ -1257,6 +1311,7 @@ export const useWebSocket = () => {
 ```
 
 **File: `src/App.tsx`**
+
 ```typescript
 import { Dashboard } from '@/components/Dashboard/Dashboard';
 import { RunManagement } from '@/components/RunManagement/RunManagement';
@@ -1291,6 +1346,7 @@ export default App;
 ```
 
 **Acceptance Criteria:**
+
 - ✅ App renders correctly
 - ✅ WebSocket connects on mount
 - ✅ Components work together
@@ -1302,12 +1358,14 @@ export default App;
 **Note on Tauri + Vite 7**: Tauri 2 is fully compatible with Vite 7. The Tauri team recommends Vite for all SPA frameworks (React, Vue, Svelte, etc.). Vite 7's improved performance will make `tauri dev` even faster!
 
 ### Task 8.1: Install Tauri
+
 ```bash
 npm install @tauri-apps/api
 npm install -D @tauri-apps/cli
 ```
 
 **File: `package.json` - Add scripts:**
+
 ```json
 {
   "scripts": {
@@ -1319,11 +1377,13 @@ npm install -D @tauri-apps/cli
 ```
 
 ### Task 8.2: Initialize Tauri
+
 ```bash
 npm run tauri init
 ```
 
 Answer prompts:
+
 - App name: `nemo-instrument`
 - Window title: `Nemo Instrument UI`
 - Web assets: `../dist`
@@ -1332,6 +1392,7 @@ Answer prompts:
 - Build command: `npm run build`
 
 **File: `src-tauri/tauri.conf.json` - Configure kiosk:**
+
 ```json
 {
   "build": {
@@ -1367,6 +1428,7 @@ Answer prompts:
 ```
 
 **Add CLI argument for kiosk mode in `src-tauri/src/main.rs`:**
+
 ```rust
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
@@ -1392,6 +1454,7 @@ fn main() {
 ```
 
 **Acceptance Criteria:**
+
 - ✅ `npm run tauri:dev` launches desktop app
 - ✅ `npm run tauri build` creates executable
 - ✅ `--kiosk` flag works
@@ -1401,7 +1464,9 @@ fn main() {
 ## Phase 9: Docker Configuration (30 min)
 
 ### Task 9.1: Create Dockerfiles
+
 **File: `docker/Dockerfile.web`**
+
 ```dockerfile
 FROM node:24-alpine AS builder
 
@@ -1419,6 +1484,7 @@ CMD ["nginx", "-g", "daemon off;"]
 ```
 
 **File: `docker/nginx.conf`**
+
 ```nginx
 server {
     listen 80;
@@ -1438,6 +1504,7 @@ server {
 ```
 
 **File: `docker/Dockerfile.backend`**
+
 ```dockerfile
 FROM node:24-alpine
 
@@ -1451,6 +1518,7 @@ CMD ["npm", "start"]
 ```
 
 **File: `docker-compose.yml`**
+
 ```yaml
 version: '3.8'
 
@@ -1490,6 +1558,7 @@ networks:
 ```
 
 **Acceptance Criteria:**
+
 - ✅ `docker-compose up` starts both services
 - ✅ Web UI accessible at `http://localhost:3000`
 - ✅ WebSocket connects to backend
@@ -1499,7 +1568,9 @@ networks:
 ## Phase 10: Documentation & Ubuntu Setup (1 hour)
 
 ### Task 10.1: Create Setup Documentation
+
 **File: `docs/UBUNTU_SETUP.md`**
+
 ```markdown
 # Ubuntu VM Setup Guide
 
@@ -1521,12 +1592,14 @@ sudo ./setup-vm.sh
 ## Manual Setup
 
 ### 1. Create User
+
 ```bash
 sudo adduser nemo
 sudo usermod -aG sudo,docker nemo
 ```
 
 ### 2. Install Dependencies
+
 ```bash
 sudo apt update
 sudo apt install -y docker.io docker-compose git firefox unclutter
@@ -1535,6 +1608,7 @@ sudo systemctl start docker
 ```
 
 ### 3. Clone Repository
+
 ```bash
 cd /home/nemo
 git clone https://github.com/TheRobBrennan/nemo-instrument-poc
@@ -1542,11 +1616,13 @@ cd nemo-instrument-poc
 ```
 
 ### 4. Deploy Application
+
 ```bash
 docker-compose up -d
 ```
 
 ### 5. Configure Kiosk Mode
+
 ```bash
 # Create systemd service
 sudo mkdir -p /home/nemo/.config/systemd/user/
@@ -1571,6 +1647,7 @@ sudo loginctl enable-linger nemo
 ```
 
 ### 6. Auto-login (Optional)
+
 ```bash
 sudo mkdir -p /etc/systemd/system/getty@tty1.service.d/
 sudo tee /etc/systemd/system/getty@tty1.service.d/autologin.conf << EOF
@@ -1590,22 +1667,26 @@ EOF
 ## Troubleshooting
 
 ### Docker not running
+
 ```bash
 sudo systemctl status docker
 sudo systemctl restart docker
 ```
 
 ### Application not accessible
+
 ```bash
 docker-compose logs
 curl http://localhost:3000
 ```
 
 ### Kiosk not starting
+
 ```bash
 systemctl --user status kiosk.service
 journalctl --user -u kiosk.service
 ```
+
 ```
 
 **File: `scripts/setup-vm.sh`**
@@ -1675,6 +1756,7 @@ echo "To enable kiosk mode, run: sudo ./scripts/setup-kiosk.sh"
 ```
 
 **Acceptance Criteria:**
+
 - ✅ Documentation is clear
 - ✅ Setup script works
 - ✅ Can reproduce setup on fresh VM
@@ -1684,6 +1766,7 @@ echo "To enable kiosk mode, run: sudo ./scripts/setup-kiosk.sh"
 ## Phase 11: Final Integration & Testing (30 min)
 
 ### Task 11.1: Run Full Test Suite
+
 ```bash
 # Unit and component tests
 npm test
@@ -1699,6 +1782,7 @@ npm run tauri build
 ```
 
 ### Task 11.2: End-to-End Verification
+
 1. Start backend: `cd backend-mock && npm start`
 2. Start frontend: `npm run dev`
 3. Verify:
@@ -1708,6 +1792,7 @@ npm run tauri build
    - UI responsive
 
 ### Task 11.3: Docker Verification
+
 ```bash
 docker-compose up --build
 # Visit http://localhost:3000
@@ -1715,6 +1800,7 @@ docker-compose up --build
 ```
 
 **Acceptance Criteria:**
+
 - ✅ All tests pass
 - ✅ Coverage >70%
 - ✅ Application works in dev mode
@@ -1728,6 +1814,7 @@ docker-compose up --build
 Before the client meeting:
 
 ### Technical Preparation
+
 - [ ] All code committed to GitHub
 - [ ] Tests passing
 - [ ] Docker containers built
@@ -1735,18 +1822,21 @@ Before the client meeting:
 - [ ] Backup video recorded (optional)
 
 ### Demo Environment
+
 - [ ] Backend running (`cd backend-mock && npm start`)
 - [ ] Frontend running (`npm run dev`)
 - [ ] Docker compose ready (`docker-compose up`)
 - [ ] VM accessible (SSH or direct)
 
 ### Presentation Materials
+
 - [ ] PRD printed/ready
 - [ ] Architecture diagram
 - [ ] Code samples highlighted
 - [ ] Test coverage report open
 
 ### Key Talking Points
+
 - [ ] Technology choices align with SOW
 - [ ] Real-time communication demonstrated
 - [ ] Professional code quality
@@ -1759,12 +1849,14 @@ Before the client meeting:
 ## Post-Demo Actions
 
 ### Immediate Follow-up
+
 - [ ] Send thank-you email
 - [ ] Share GitHub repository link
 - [ ] Provide demo recording (if available)
 - [ ] Answer any technical questions
 
 ### Based on Feedback
+
 - [ ] Incorporate requested changes
 - [ ] Refine architecture
 - [ ] Update timeline estimates
@@ -1782,6 +1874,7 @@ This implementation plan is designed to be executed sequentially. Each phase bui
 4. **Commit frequently**: Commit after each phase completion
 
 The plan prioritizes:
+
 - **Working software** over perfect code
 - **Real functionality** over mock UIs
 - **Demonstrable value** over comprehensive features
