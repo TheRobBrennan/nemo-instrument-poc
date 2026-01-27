@@ -38,18 +38,18 @@ function App() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       <header className="bg-white shadow-sm border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <h1 className="text-3xl font-bold text-gray-900">
+        <div className="px-4 sm:px-6 py-4 sm:py-6 xl:max-w-7xl xl:mx-auto">
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
             Nemo Instrument Control
           </h1>
-          <p className="mt-1 text-sm text-gray-600">
+          <p className="mt-1 text-xs sm:text-sm text-gray-600">
             Real-time proteomics instrument monitoring and control
           </p>
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <main className="px-4 sm:px-6 py-4 sm:py-8 xl:max-w-7xl xl:mx-auto">
+        <div className="space-y-6 lg:space-y-0 lg:grid lg:grid-cols-2 lg:gap-8">
           <Dashboard />
           <RunControls />
         </div>
