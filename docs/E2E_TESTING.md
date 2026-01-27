@@ -157,13 +157,13 @@ E2E tests run automatically in CI with:
 
 ### Test Distribution
 
-| Suite                 | Tests | Status            |
-|-----------------------|-------|-------------------|
-| Dashboard             | 6     | ✅ Passing        |
-| WebSocket Integration | 3     | ✅ Passing        |
-| Instrument States     | 3     | ✅ Passing        |
-| Accessibility         | 4     | ✅ Passing        |
-| **Total**             | **16** | **✅ All Passing** |
+| Suite                 | Tests  | Status              |
+|-----------------------|--------|---------------------|
+| Dashboard             | 6      | ✅ Passing          |
+| WebSocket Integration | 3      | ✅ Passing          |
+| Instrument States     | 3      | ✅ Passing          |
+| Accessibility         | 4      | ✅ Passing          |
+| **Total**             | **16** | **✅ All Passing**  |
 
 ---
 
