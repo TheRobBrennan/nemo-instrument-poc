@@ -1,6 +1,6 @@
 {
   "name": "sploosh-ai-github-template",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A GitHub template repository with automated versioning and GPG signing for SplooshAI projects",
   "homepage": "https://github.com/SplooshAI/sploosh-ai-github-template#readme",
   "bugs": {
