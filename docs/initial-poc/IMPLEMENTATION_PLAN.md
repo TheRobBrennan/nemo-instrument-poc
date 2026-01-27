@@ -64,7 +64,6 @@ nemo-instrument-poc/
 │   └── build.sh                  # Build all services
 │
 ├── .github/                       # CI/CD workflows
-├── docker-compose.yml             # Root compose (symlink)
 ├── package.json                   # Root package.json with scripts
 └── README.md                      # Quick start guide
 ```
@@ -85,12 +84,13 @@ nemo-instrument-poc/
 **Files to create**:
 ```
 package.json                       # Root orchestration scripts
-docker-compose.yml                 # Main Docker setup
-docker/.env.example               # Environment variables
+docker/
+├── docker-compose.yml            # Main Docker setup
+├── .dockerignore                 # Docker ignore patterns
+└── .env.example                  # Environment variables
 scripts/setup.sh                  # Initial setup script
 docs/DOCKER_SETUP.md              # Docker documentation
 README.md                         # Updated with Docker-first approach
-.dockerignore                     # Docker ignore patterns
 ```
 
 **Root package.json scripts**:
