@@ -70,10 +70,7 @@ wss.on('connection', (ws) => {
           break;
 
         case 'GET_STATUS':
-          simulator.sendStatusUpdate({
-            state: InstrumentState.IDLE,
-            timestamp: new Date().toISOString()
-          });
+          simulator.sendCurrentStatus();
           break;
 
         case 'PING':
