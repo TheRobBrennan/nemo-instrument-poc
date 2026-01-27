@@ -11,7 +11,7 @@
     "url": "git+https://github.com/TheRobBrennan/nemo-instrument-poc.git"
   },
   "license": "MIT",
-  "author": "Rob Brennan <rob@therobbrennan.com>",
+  "author": "Rob Brennan <rob@sploosh.ai>",
   "scripts": {
     "start": "npm run setup:ssh && npm repo",
     "setup:ssh": "eval \"$(ssh-agent -s)\" && ssh-add ~/.ssh/splooshai-github",
