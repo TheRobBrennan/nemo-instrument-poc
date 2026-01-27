@@ -23,26 +23,25 @@ services:
       retries: 3
       start_period: 10s
 
-  # Frontend service - Uncomment in Phase 3
-  # frontend:
-  #   build:
-  #     context: ../services/frontend
-  #     dockerfile: Dockerfile
-  #     target: development
-  #   container_name: nemo-frontend
-  #   ports:
-  #     - "5173:5173"
-  #   environment:
-  #     - VITE_WS_URL=ws://localhost:8080
-  #     - VITE_API_URL=http://localhost:3001
-  #   volumes:
-  #     - ../services/frontend:/app
-  #     - /app/node_modules
-  #   depends_on:
-  #     backend:
-  #       condition: service_healthy
-  #   networks:
-  #     - nemo-network
+  frontend:
+    build:
+      context: ../services/frontend
+      dockerfile: Dockerfile
+      target: development
+    container_name: nemo-frontend
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_WS_URL=ws://localhost:8080
+      - VITE_API_URL=http://localhost:3001
+    volumes:
+      - ../services/frontend:/app
+      - /app/node_modules
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - nemo-network
 
 networks:
   nemo-network:
