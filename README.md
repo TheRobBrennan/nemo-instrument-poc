@@ -1,31 +1,77 @@
 # Nemo Instrument POC
 
-This is a proof of concept for Nemo instrument integration that provides automated versioning, GPG signing, and standardized workflows.
+A proof of concept for the Nemo proteomics instrument UI with Docker-first development workflow.
 
-It includes:
+## Features
 
-- Automated semantic versioning
-- GPG signing for all commits
-- Local GitHub Actions and Workflow testing with `act`
-- Standardized PR and commit message formats
+- **Docker-First Development**: Everything runs in containers from day one
+- **Real-Time WebSocket Communication**: Live instrument status updates
+- **Modern Tech Stack**: React 19, Vite 7, Node.js 24 LTS, Tauri 2
+- **Monorepo Architecture**: npm workspaces for frontend and backend services
+- **Automated Versioning**: Semantic versioning with GPG signing
+- **Local Testing**: GitHub Actions testing with `act`
 
-## Quick Start
+## Quick Start (Docker)
+
+```bash
+# Clone repository
+git clone https://github.com/TheRobBrennan/nemo-instrument-poc
+cd nemo-instrument-poc
+
+# Run setup script
+npm run setup
+
+# Start entire stack
+npm start
+
+# Or build and start fresh
+npm run start:clean
+```
+
+**Access Points:**
+- Frontend: <http://localhost:5173>
+- Backend Health: <http://localhost:3001/health>
+- WebSocket: <ws://localhost:8080>
+
+## Development Commands
+
+```bash
+# Docker commands
+npm start              # Start all services
+npm run start:clean    # Rebuild and start
+npm run docker:down    # Stop all services
+npm run docker:clean   # Stop and remove volumes
+npm run docker:logs    # View logs
+
+# Service-specific
+npm run docker:frontend  # Start frontend only
+npm run docker:backend   # Start backend only
+
+# Testing
+npm test               # Run all tests
+```
+
+## Project Structure
+
+```
+nemo-instrument-poc/
+├── services/
+│   ├── frontend/          # React + Vite + TypeScript
+│   └── backend-mock/      # Node.js WebSocket server
+├── docker/                # Docker configuration
+├── docs/                  # Documentation
+│   ├── initial-poc/       # POC implementation docs
+│   └── draft/             # Original planning docs
+└── scripts/               # Utility scripts
+```
+
+## Legacy Quick Start (Non-Docker)
 
 If you plan on using the generate-gpg-key.sh script to generate a GPG key, temporarily replace the placeholder passphrase with a secure passphrase of your choice:
 
 ```sh
 # TODO: Replace this with a secure passphrase of your choice
 PASSPHRASE="d3f3nd!t@ll"
-```
-
-Install dependencies and start the development server:
-
-```bash
-# Install dependencies
-npm install
-
-# Ensure your SSH agent is running and has the appropriate key added (example uses ~/.ssh/id_ed25519)
-npm start
 ```
 
 ## Testing GitHub Actions Locally
