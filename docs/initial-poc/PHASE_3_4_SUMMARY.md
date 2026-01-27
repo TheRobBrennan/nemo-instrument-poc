@@ -78,7 +78,7 @@ services/frontend/
 
 ### Branding
 - **Page title**: "Nemo Instrument Control - GenUI"
-- **GenUI favicon** from www.genui.com
+- **GenUI favicon** from <www.genui.com>
 - **Professional header** with subtitle
 
 ## 🐳 Docker Integration

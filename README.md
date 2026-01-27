@@ -39,7 +39,7 @@ npm run start:clean
 
 **Prerequisites**: Requires Rust installed OR use Docker build
 
-**Option 1: Local (requires Rust)**
+#### Option 1: Local (requires Rust)
 ```bash
 # Install Rust first
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
@@ -51,7 +51,7 @@ npm run docker:backend
 npm run desktop
 ```
 
-**Option 2: Platform-Specific Builds**
+#### Option 2: Platform-Specific Builds
 ```bash
 # macOS build (requires Rust on macOS)
 npm run tauri:build:macos
