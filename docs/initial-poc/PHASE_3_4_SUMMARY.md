@@ -1,4 +1,4 @@
-# Phase 3: Frontend React Application - Summary
+# Phase 3 + 4: Frontend React Application with WebSocket Integration - Summary
 
 ## ✅ Completed
 
@@ -156,8 +156,9 @@ services/frontend/
 # Start full stack
 npm start
 
-# Access frontend
-open http://localhost:5173
+### Access the Application
+
+Frontend: <http://localhost:5173>
 
 # Test flow:
 1. Verify "Connected" status shows (green dot)
@@ -203,3 +204,7 @@ The frontend is **fully functional** and **demo-ready**:
 - ✅ Docker containerized
 
 **Phase 3 + 4 Complete**: Full-stack real-time instrument control system working end-to-end!
+
+## 📝 Note on Phase 4
+
+Phase 4 (WebSocket Integration) was implemented together with Phase 3 as they are tightly coupled. The WebSocket service, real-time status updates, and message handling are all part of the frontend implementation, making it natural to complete both phases together.

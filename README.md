@@ -11,14 +11,16 @@ A proof of concept for the Nemo proteomics instrument UI with Docker-first devel
 - **Automated Versioning**: Semantic versioning with GPG signing
 - **Local Testing**: GitHub Actions testing with `act`
 
-## Quick Start (Docker)
+## Quick Start
+
+### Docker Mode (Web)
 
 ```bash
 # Clone repository
 git clone https://github.com/TheRobBrennan/nemo-instrument-poc
 cd nemo-instrument-poc
 
-# Run setup script
+# Run setup script (checks dependencies, offers Rust installation)
 npm run setup
 
 # Start entire stack
@@ -32,6 +34,31 @@ npm run start:clean
 - Frontend: <http://localhost:5173>
 - Backend Health: <http://localhost:3001/health>
 - WebSocket: <ws://localhost:8080>
+
+### Desktop Mode (Tauri)
+
+**Prerequisites**: Requires Rust installed OR use Docker build
+
+**Option 1: Local (requires Rust)**
+```bash
+# Install Rust first
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+# Start backend
+npm run docker:backend
+
+# Launch desktop app
+npm run desktop
+```
+
+**Option 2: Platform-Specific Builds**
+```bash
+# macOS build (requires Rust on macOS)
+npm run tauri:build:macos
+
+# Linux build (Docker - no Rust required)
+npm run tauri:build:linux
+```
 
 ## Development Commands
 
