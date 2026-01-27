@@ -3,10 +3,10 @@
         "title": "adding some feature without proper format",
         "body": "This PR title doesn't follow semantic versioning",
         "number": 1,
-        "html_url": "https://github.com/SplooshAI/sploosh-ai-github-template/pull/1"
+        "html_url": "https://github.com/TheRobBrennan/nemo-instrument-poc/pull/1"
     },
     "repository": {
-        "full_name": "SplooshAI/sploosh-ai-github-template",
-        "html_url": "https://github.com/SplooshAI/sploosh-ai-github-template"
+        "full_name": "TheRobBrennan/nemo-instrument-poc",
+        "html_url": "https://github.com/TheRobBrennan/nemo-instrument-poc"
     }
 }
