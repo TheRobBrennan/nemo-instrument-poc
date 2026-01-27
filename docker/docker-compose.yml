@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  # Placeholder service - Remove when backend is implemented in Phase 2
+  placeholder:
+    image: hello-world
+    container_name: nemo-placeholder
+    networks:
+      - nemo-network
+
+  # Backend service - Uncomment in Phase 2
+  # backend:
+  #   build:
+  #     context: ../services/backend-mock
+  #     dockerfile: Dockerfile
+  #   container_name: nemo-backend
+  #   ports:
+  #     - "8080:8080"
+  #     - "3001:3001"
+  #   environment:
+  #     - NODE_ENV=development
+  #     - WS_PORT=8080
+  #     - HTTP_PORT=3001
+  #   volumes:
+  #     - ../services/backend-mock:/app
+  #     - /app/node_modules
+  #   networks:
+  #     - nemo-network
+  #   healthcheck:
+  #     test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3001/health"]
+  #     interval: 10s
+  #     timeout: 5s
+  #     retries: 3
+  #     start_period: 10s
+
+  # Frontend service - Uncomment in Phase 3
+  # frontend:
+  #   build:
+  #     context: ../services/frontend
+  #     dockerfile: Dockerfile
+  #     target: development
+  #   container_name: nemo-frontend
+  #   ports:
+  #     - "5173:5173"
+  #   environment:
+  #     - VITE_WS_URL=ws://localhost:8080
+  #     - VITE_API_URL=http://localhost:3001
+  #   volumes:
+  #     - ../services/frontend:/app
+  #     - /app/node_modules
+  #   depends_on:
+  #     backend:
+  #       condition: service_healthy
+  #   networks:
+  #     - nemo-network
+
+networks:
+  nemo-network:
+    driver: bridge
