@@ -29,14 +29,14 @@ export function RunControls() {
   const isIdle = status.state === InstrumentState.IDLE;
 
   return (
-    <div className="bg-white rounded-lg shadow-lg p-6">
-      <h2 className="text-2xl font-bold text-gray-900 mb-6">Run Controls</h2>
+    <div className="w-full bg-white rounded-lg shadow-lg p-4 sm:p-6">
+      <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6">Run Controls</h2>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="space-y-3 sm:space-y-0 sm:grid sm:grid-cols-2 sm:gap-4">
         <button
           onClick={handleStartRun}
           disabled={!isConnected || !isIdle}
-          className="px-6 py-3 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
+          className="w-full px-6 py-4 sm:py-3 bg-green-600 text-white text-base font-semibold rounded-lg hover:bg-green-700 active:bg-green-800 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors shadow-sm"
         >
           Start Run
         </button>
@@ -44,7 +44,7 @@ export function RunControls() {
         <button
           onClick={handlePauseRun}
           disabled={!isConnected || !isRunning}
-          className="px-6 py-3 bg-yellow-600 text-white font-semibold rounded-lg hover:bg-yellow-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
+          className="w-full px-6 py-4 sm:py-3 bg-yellow-600 text-white text-base font-semibold rounded-lg hover:bg-yellow-700 active:bg-yellow-800 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors shadow-sm"
         >
           Pause Run
         </button>
@@ -52,7 +52,7 @@ export function RunControls() {
         <button
           onClick={handleResumeRun}
           disabled={!isConnected || !isPaused}
-          className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
+          className="w-full px-6 py-4 sm:py-3 bg-blue-600 text-white text-base font-semibold rounded-lg hover:bg-blue-700 active:bg-blue-800 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors shadow-sm"
         >
           Resume Run
         </button>
@@ -60,7 +60,7 @@ export function RunControls() {
         <button
           onClick={handleCancelRun}
           disabled={!isConnected || isIdle}
-          className="px-6 py-3 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
+          className="w-full px-6 py-4 sm:py-3 bg-red-600 text-white text-base font-semibold rounded-lg hover:bg-red-700 active:bg-red-800 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors shadow-sm"
         >
           Cancel Run
         </button>
