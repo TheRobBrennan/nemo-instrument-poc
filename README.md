@@ -1,6 +1,6 @@
-# Welcome
+# Nemo Instrument POC
 
-This is a GitHub template repository that provides automated versioning, GPG signing, and standardized workflows for Sploosh.AI projects.
+This is a proof of concept for Nemo instrument integration that provides automated versioning, GPG signing, and standardized workflows.
 
 It includes:
 
@@ -24,7 +24,7 @@ Install dependencies and start the development server:
 # Install dependencies
 npm install
 
-# Ensure your SSH agent is running and has the appropriate key added (example uses ~/.ssh/splooshai-github)
+# Ensure your SSH agent is running and has the appropriate key added (example uses ~/.ssh/id_ed25519)
 npm start
 ```
 

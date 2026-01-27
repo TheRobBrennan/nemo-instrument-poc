@@ -21,7 +21,7 @@ Go to Settings → Actions → General and configure:
 ### Access
 
 - Select "Not accessible" if you want to restrict workflow access
-- Or "Accessible from repositories in the 'SplooshAI' organization" for org-wide access
+- Or "Accessible from repositories owned by TheRobBrennan" for personal account access
 - Click "Save"
 
 ## 2. Configure Branch Protection
