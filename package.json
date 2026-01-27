@@ -1,6 +1,6 @@
 {
   "name": "nemo-instrument-poc",
-  "version": "0.5.2",
+  "version": "0.6.0",
   "description": "A proof of concept for Nemo instrument integration with automated versioning and GPG signing",
   "homepage": "https://github.com/TheRobBrennan/nemo-instrument-poc#readme",
   "bugs": {
