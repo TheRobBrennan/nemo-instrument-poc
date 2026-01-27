@@ -1,37 +1,27 @@
-version: '3.8'
-
 services:
-  # Placeholder service - Remove when backend is implemented in Phase 2
-  placeholder:
-    image: hello-world
-    container_name: nemo-placeholder
+  backend:
+    build:
+      context: ../services/backend-mock
+      dockerfile: Dockerfile
+    container_name: nemo-backend
+    ports:
+      - "8080:8080"
+      - "3001:3001"
+    environment:
+      - NODE_ENV=development
+      - WS_PORT=8080
+      - HTTP_PORT=3001
+    volumes:
+      - ../services/backend-mock:/app
+      - /app/node_modules
     networks:
       - nemo-network
-
-  # Backend service - Uncomment in Phase 2
-  # backend:
-  #   build:
-  #     context: ../services/backend-mock
-  #     dockerfile: Dockerfile
-  #   container_name: nemo-backend
-  #   ports:
-  #     - "8080:8080"
-  #     - "3001:3001"
-  #   environment:
-  #     - NODE_ENV=development
-  #     - WS_PORT=8080
-  #     - HTTP_PORT=3001
-  #   volumes:
-  #     - ../services/backend-mock:/app
-  #     - /app/node_modules
-  #   networks:
-  #     - nemo-network
-  #   healthcheck:
-  #     test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3001/health"]
-  #     interval: 10s
-  #     timeout: 5s
-  #     retries: 3
-  #     start_period: 10s
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3001/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
 
   # Frontend service - Uncomment in Phase 3
   # frontend:
