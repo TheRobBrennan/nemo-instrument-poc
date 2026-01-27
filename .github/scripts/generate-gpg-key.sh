@@ -3,7 +3,7 @@
 # Configuration
 BOT_NAME="github-actions[bot]"
 BOT_EMAIL="41898282+github-actions[bot]@users.noreply.github.com"
-KEY_COMMENT="GitHub Actions bot (SplooshAI)"
+KEY_COMMENT="GitHub Actions bot (TheRobBrennan)"
 
 # TODO: Replace this with a secure passphrase of your choice
 PASSPHRASE="d3f3nd!t@ll"

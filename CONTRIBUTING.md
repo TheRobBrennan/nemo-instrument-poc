@@ -77,5 +77,5 @@ For repository maintainers, ensure these GitHub Actions settings are configured:
    ```md
    Repository Access:
    ○ Not accessible (recommended for private repos)
-   ○ Accessible from repositories in the 'SplooshAI' organization
+   ○ Accessible from repositories owned by TheRobBrennan
    ```
