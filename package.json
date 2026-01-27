@@ -31,6 +31,8 @@
     "dev": "docker-compose -f docker/docker-compose.yml up",
     "build": "docker-compose -f docker/docker-compose.yml build",
     "test": "npm run test --workspaces --if-present",
+    "test:coverage": "npm run test:coverage --workspace=frontend",
+    "test:ui": "npm run test:ui --workspace=frontend",
     "tauri:dev": "npm run tauri:dev --workspace=frontend",
     "tauri:build": "npm run tauri:build --workspace=frontend",
     "tauri:build:macos": "npm run tauri:build --workspace=frontend && open services/frontend/src-tauri/target/release/bundle/macos",
