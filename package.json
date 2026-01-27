@@ -1,17 +1,17 @@
 {
-  "name": "sploosh-ai-github-template",
-  "version": "0.0.2",
-  "description": "A GitHub template repository with automated versioning and GPG signing for SplooshAI projects",
-  "homepage": "https://github.com/SplooshAI/sploosh-ai-github-template#readme",
+  "name": "nemo-instrument-poc",
+  "version": "0.0.0",
+  "description": "A proof of concept for Nemo instrument integration with automated versioning and GPG signing",
+  "homepage": "https://github.com/TheRobBrennan/nemo-instrument-poc#readme",
   "bugs": {
-    "url": "https://github.com/SplooshAI/sploosh-ai-github-template/issues"
+    "url": "https://github.com/TheRobBrennan/nemo-instrument-poc/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/SplooshAI/sploosh-ai-github-template.git"
+    "url": "git+https://github.com/TheRobBrennan/nemo-instrument-poc.git"
   },
   "license": "MIT",
-  "author": "Rob Brennan <rob@sploosh.ai>",
+  "author": "Rob Brennan <rob@therobbrennan.com>",
   "scripts": {
     "start": "npm run setup:ssh && npm repo",
     "setup:ssh": "eval \"$(ssh-agent -s)\" && ssh-add ~/.ssh/splooshai-github",
