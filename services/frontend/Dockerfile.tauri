@@ -1,0 +1,41 @@
+# Tauri Desktop Build Dockerfile
+# This allows building the desktop app without installing Rust locally
+# Note: This builds for Linux. For macOS builds, use the local Rust toolchain.
+
+FROM rust:1.75-slim AS tauri-builder
+
+# Install system dependencies for Tauri (Linux)
+RUN apt-get update && apt-get install -y \
+    libwebkit2gtk-4.0-dev \
+    build-essential \
+    curl \
+    wget \
+    file \
+    libssl-dev \
+    libgtk-3-dev \
+    libayatana-appindicator3-dev \
+    librsvg2-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Node.js 24
+RUN curl -fsSL https://deb.nodesource.com/setup_24.x | bash - \
+    && apt-get install -y nodejs \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+# Copy package files
+COPY package*.json ./
+COPY src-tauri/Cargo.toml src-tauri/Cargo.lock* src-tauri/
+
+# Install npm dependencies (use install since no package-lock.json)
+RUN npm install --omit=dev
+
+# Copy source code
+COPY . .
+
+# Build the Tauri app for Linux
+RUN npm run tauri:build
+
+# The built application will be in src-tauri/target/release/bundle/
+# Extract with: docker cp <container>:/app/src-tauri/target/release/bundle/ ./dist-desktop/

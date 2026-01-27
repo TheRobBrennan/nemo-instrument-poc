@@ -3,17 +3,28 @@ import type { WebSocketMessage } from '../types/instrument';
 class WebSocketService {
   private ws: WebSocket | null = null;
   private reconnectAttempts = 0;
-  private maxReconnectAttempts = 5;
-  private reconnectDelay = 2000;
+  private reconnectDelay = 1000; // Start with 1 second
+  private maxReconnectDelay = 30000; // Max 30 seconds between attempts
   private messageHandlers: ((message: WebSocketMessage) => void)[] = [];
+  private reconnectTimeout: number | null = null;
+  private url: string = '';
 
   connect(url: string) {
+    this.url = url;
+    
+    // Clear any existing reconnect timeout
+    if (this.reconnectTimeout) {
+      clearTimeout(this.reconnectTimeout);
+      this.reconnectTimeout = null;
+    }
+
     try {
       this.ws = new WebSocket(url);
 
       this.ws.onopen = () => {
         console.log('✅ WebSocket connected');
         this.reconnectAttempts = 0;
+        this.reconnectDelay = 1000; // Reset delay on successful connection
       };
 
       this.ws.onmessage = (event) => {
@@ -31,19 +42,26 @@ class WebSocketService {
 
       this.ws.onclose = () => {
         console.log('🔌 WebSocket disconnected');
-        this.attemptReconnect(url);
+        this.attemptReconnect();
       };
     } catch (error) {
       console.error('Failed to connect to WebSocket:', error);
+      this.attemptReconnect();
     }
   }
 
-  private attemptReconnect(url: string) {
-    if (this.reconnectAttempts < this.maxReconnectAttempts) {
-      this.reconnectAttempts++;
-      console.log(`Reconnecting... (${this.reconnectAttempts}/${this.maxReconnectAttempts})`);
-      setTimeout(() => this.connect(url), this.reconnectDelay);
-    }
+  private attemptReconnect() {
+    // Always try to reconnect (no max attempts for desktop app)
+    this.reconnectAttempts++;
+    
+    // Exponential backoff with max delay
+    const delay = Math.min(this.reconnectDelay * Math.pow(1.5, this.reconnectAttempts - 1), this.maxReconnectDelay);
+    
+    console.log(`🔄 Reconnecting in ${(delay / 1000).toFixed(1)}s... (attempt ${this.reconnectAttempts})`);
+    
+    this.reconnectTimeout = window.setTimeout(() => {
+      this.connect(this.url);
+    }, delay);
   }
 
   onMessage(handler: (message: WebSocketMessage) => void) {
@@ -59,10 +77,18 @@ class WebSocketService {
   }
 
   disconnect() {
+    // Clear any pending reconnect attempts
+    if (this.reconnectTimeout) {
+      clearTimeout(this.reconnectTimeout);
+      this.reconnectTimeout = null;
+    }
+    
     if (this.ws) {
       this.ws.close();
       this.ws = null;
     }
+    
+    this.reconnectAttempts = 0;
   }
 
   isConnected(): boolean {

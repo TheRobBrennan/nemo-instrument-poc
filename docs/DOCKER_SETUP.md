@@ -78,12 +78,12 @@ npm run start:clean
 
 ### 4. Verify Services
 
-**Frontend**: http://localhost:5173
+**Frontend**: <http://localhost:5173>
 ```bash
 curl http://localhost:5173
 ```
 
-**Backend Health**: http://localhost:3001/health
+**Backend Health**: <http://localhost:3001/health>
 ```bash
 curl http://localhost:3001/health
 # Expected: {"status":"ok","timestamp":"..."}
@@ -165,13 +165,13 @@ vim docker/.env
 
 **Available Variables:**
 
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `NODE_ENV` | `development` | Node environment |
-| `VITE_WS_URL` | `ws://localhost:8080` | WebSocket URL for frontend |
-| `VITE_API_URL` | `http://localhost:3001` | Backend API URL |
-| `WS_PORT` | `8080` | WebSocket server port |
-| `HTTP_PORT` | `3001` | HTTP server port |
+| Variable        | Default                | Description                    |
+|-----------------|------------------------|--------------------------------|
+| `NODE_ENV`      | `development`          | Node environment               |
+| `VITE_WS_URL`   | `ws://localhost:8080`  | WebSocket URL for frontend     |
+| `VITE_API_URL`  | `http://localhost:3001`| Backend API URL                |
+| `WS_PORT`       | `8080`                 | WebSocket server port          |
+| `HTTP_PORT`     | `3001`                 | HTTP server port               |
 
 ---
 
