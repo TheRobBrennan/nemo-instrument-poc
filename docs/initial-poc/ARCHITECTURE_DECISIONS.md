@@ -12,13 +12,13 @@ This document captures key architectural decisions made during the Nemo Instrume
 **Date**: 2026-01-27  
 **Deciders**: Development Team
 
-### Context
+### Context (ADR-001)
 Need to ensure consistent development environment across team and easy onboarding for new developers.
 
-### Decision
+### Decision (ADR-001)
 Adopt Docker-first approach where all services run in containers from day one.
 
-### Consequences
+### Consequences (ADR-001)
 
 **Positive:**
 - Consistent environment across all machines
@@ -45,19 +45,19 @@ Adopt Docker-first approach where all services run in containers from day one.
 **Date**: 2026-01-27  
 **Deciders**: Development Team
 
-### Context
+### Context (ADR-002)
 Need to manage multiple services (frontend, backend) with shared tooling and dependencies.
 
-### Decision
+### Decision (ADR-002)
 Use npm workspaces for monorepo management instead of Lerna or Nx.
 
-### Rationale
+### Rationale (ADR-002)
 - Native npm support (no additional tools)
 - Simple and lightweight
 - Good enough for 2-3 services
 - Easy to understand
 
-### Consequences
+### Consequences (ADR-002)
 
 **Positive:**
 - Single `package-lock.json`
@@ -77,19 +77,19 @@ Use npm workspaces for monorepo management instead of Lerna or Nx.
 **Date**: 2026-01-27  
 **Deciders**: Development Team
 
-### Context
+### Context (ADR-003)
 Need real-time instrument status updates with low latency.
 
-### Decision
+### Decision (ADR-003)
 Use WebSocket protocol instead of HTTP polling or Server-Sent Events (SSE).
 
-### Rationale
+### Rationale (ADR-003)
 - Bidirectional communication
 - Lower latency than polling
 - Industry standard for real-time apps
 - Better than SSE for two-way communication
 
-### Consequences
+### Consequences (ADR-003)
 
 **Positive:**
 - True real-time updates
@@ -115,19 +115,19 @@ Use WebSocket protocol instead of HTTP polling or Server-Sent Events (SSE).
 **Date**: 2026-01-27  
 **Deciders**: Development Team
 
-### Context
+### Context (ADR-004)
 Need modern, performant frontend framework with good developer experience.
 
-### Decision
+### Decision (ADR-004)
 Use React 19 with Vite 7 instead of Create React App or Next.js.
 
-### Rationale
+### Rationale (ADR-004)
 - React 19: Latest features, better performance
 - Vite 7: Fastest build tool, excellent DX
 - TypeScript: Type safety
 - No framework lock-in (unlike Next.js)
 
-### Consequences
+### Consequences (ADR-004)
 
 **Positive:**
 - Instant HMR (Hot Module Replacement)
@@ -147,20 +147,20 @@ Use React 19 with Vite 7 instead of Create React App or Next.js.
 **Date**: 2026-01-27  
 **Deciders**: Development Team
 
-### Context
+### Context (ADR-005)
 Need simple state management for instrument status and connection state.
 
-### Decision
+### Decision (ADR-005)
 Use Zustand instead of Redux, Context API, or Jotai.
 
-### Rationale
+### Rationale (ADR-005)
 - Minimal boilerplate
 - TypeScript-first
 - No providers needed
 - Perfect for small-medium apps
 - Easy to test
 
-### Consequences
+### Consequences (ADR-005)
 
 **Positive:**
 - Very simple API
@@ -180,20 +180,20 @@ Use Zustand instead of Redux, Context API, or Jotai.
 **Date**: 2026-01-27  
 **Deciders**: Development Team
 
-### Context
+### Context (ADR-006)
 Need cross-platform desktop application deployment.
 
-### Decision
+### Decision (ADR-006)
 Use Tauri 2 instead of Electron.
 
-### Rationale
+### Rationale (ADR-006)
 - 10x smaller bundle size (~10MB vs ~100MB)
 - Better performance (native webview)
 - Rust backend (security + performance)
 - Native OS integration
 - Same React codebase
 
-### Consequences
+### Consequences (ADR-006)
 
 **Positive:**
 - Tiny bundle size
@@ -220,20 +220,20 @@ Use Tauri 2 instead of Electron.
 **Date**: 2026-01-27  
 **Deciders**: Development Team
 
-### Context
+### Context (ADR-007)
 Need modern, maintainable CSS approach.
 
-### Decision
+### Decision (ADR-007)
 Use TailwindCSS v4 instead of CSS Modules or styled-components.
 
-### Rationale
+### Rationale (ADR-007)
 - Utility-first approach
 - No CSS file management
 - Consistent design system
 - Excellent DX with IntelliSense
 - v4 performance improvements
 
-### Consequences
+### Consequences (ADR-007)
 
 **Positive:**
 - Fast development
@@ -253,19 +253,19 @@ Use TailwindCSS v4 instead of CSS Modules or styled-components.
 **Date**: 2026-01-27  
 **Deciders**: Development Team
 
-### Context
+### Context (ADR-008)
 Need stable, performant backend runtime.
 
-### Decision
+### Decision (ADR-008)
 Use Node.js 24 LTS instead of older versions or Deno/Bun.
 
-### Rationale
+### Rationale (ADR-008)
 - Latest LTS (long-term support)
 - Best performance
 - Stable and production-ready
 - Great ecosystem
 
-### Consequences
+### Consequences (ADR-008)
 
 **Positive:**
 - Latest features
@@ -288,19 +288,19 @@ Use Node.js 24 LTS instead of older versions or Deno/Bun.
 **Date**: 2026-01-27  
 **Deciders**: Development Team
 
-### Context
+### Context (ADR-009)
 Desktop app needs to handle backend restarts gracefully.
 
-### Decision
+### Decision (ADR-009)
 Implement unlimited retry with exponential backoff (1s → 30s max).
 
-### Rationale
+### Rationale (ADR-009)
 - Desktop apps should never give up
 - Exponential backoff prevents server overload
 - 30s max prevents excessive waiting
 - Resets to 1s on successful connection
 
-### Consequences
+### Consequences (ADR-009)
 
 **Positive:**
 - Robust connection handling
@@ -323,20 +323,20 @@ Implement unlimited retry with exponential backoff (1s → 30s max).
 **Date**: 2026-01-27  
 **Deciders**: Development Team
 
-### Context
+### Context (ADR-010)
 Need to deliver working demo in limited time with clear progress.
 
-### Decision
+### Decision (ADR-010)
 Break implementation into 6 phases with separate PRs.
 
-### Rationale
+### Rationale (ADR-010)
 - Clear milestones
 - Reviewable PRs
 - Can demo at any phase
 - Easy to track progress
 - Reduces merge conflicts
 
-### Consequences
+### Consequences (ADR-010)
 
 **Positive:**
 - Clear progress tracking
@@ -352,15 +352,15 @@ Break implementation into 6 phases with separate PRs.
 
 ## Summary of Key Decisions
 
-| Decision | Technology | Rationale |
-|----------|-----------|-----------|
-| Development | Docker-first | Consistency, easy onboarding |
-| Monorepo | npm workspaces | Simple, native npm support |
-| Real-time | WebSocket | Low latency, bidirectional |
-| Frontend | React 19 + Vite 7 | Modern, fast, great DX |
-| State | Zustand | Simple, minimal boilerplate |
-| Desktop | Tauri 2 | Small size, performance |
-| Styling | TailwindCSS v4 | Utility-first, consistent |
-| Backend | Node.js 24 LTS | Latest LTS, performant |
-| Reconnect | Exponential backoff | Robust, automatic recovery |
-| Process | 6 phases | Clear milestones, reviewable |
+| Decision    | Technology          | Rationale                       |
+|-------------|---------------------|---------------------------------|
+| Development | Docker-first        | Consistency, easy onboarding    |
+| Monorepo    | npm workspaces      | Simple, native npm support      |
+| Real-time   | WebSocket           | Low latency, bidirectional      |
+| Frontend    | React 19 + Vite 7   | Modern, fast, great DX          |
+| State       | Zustand             | Simple, minimal boilerplate     |
+| Desktop     | Tauri 2             | Small size, performance         |
+| Styling     | TailwindCSS v4      | Utility-first, consistent       |
+| Backend     | Node.js 24 LTS      | Latest LTS, performant          |
+| Reconnect   | Exponential backoff | Robust, automatic recovery      |
+| Process     | 6 phases            | Clear milestones, reviewable    |
