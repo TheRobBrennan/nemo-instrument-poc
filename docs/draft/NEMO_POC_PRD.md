@@ -431,19 +431,21 @@ nemo-instrument --kiosk
 ## Risk Mitigation
 
 ### Technical Risks
-| Risk | Mitigation | Backup Plan |
-|------|-----------|-------------|
-| WebSocket connectivity issues | Test thoroughly, add reconnection logic | Demonstrate with fallback polling |
-| Tauri build fails | Test build beforehand | Show web version only |
-| Ubuntu VM issues | Pre-configure and test VM | Use local Ubuntu via Docker |
-| Time constraints | Prioritize core features | Have video backup of full demo |
+
+| Risk                          | Mitigation                                | Backup Plan                          |
+|-------------------------------|-------------------------------------------|--------------------------------------|
+| WebSocket connectivity issues | Test thoroughly, add reconnection logic   | Demonstrate with fallback polling    |
+| Tauri build fails             | Test build beforehand                     | Show web version only                |
+| Ubuntu VM issues              | Pre-configure and test VM                 | Use local Ubuntu via Docker          |
+| Time constraints              | Prioritize core features                  | Have video backup of full demo       |
 
 ### Demo Risks
-| Risk | Mitigation | Backup Plan |
-|------|-----------|-------------|
-| Network issues | Local deployment | Pre-recorded video |
-| Live coding fails | Have working version ready | Switch to prepared demo |
-| Questions go deep | Know architecture inside-out | "Let me research and follow up" |
+
+| Risk               | Mitigation                   | Backup Plan                        |
+|--------------------|------------------------------|------------------------------------|
+| Network issues     | Local deployment             | Pre-recorded video                 |
+| Live coding fails  | Have working version ready   | Switch to prepared demo            |
+| Questions go deep  | Know architecture inside-out | "Let me research and follow up"    |
 
 ---
 
